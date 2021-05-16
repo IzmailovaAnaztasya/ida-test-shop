@@ -42,6 +42,7 @@ export default {
             line-height: 28px;
             line-height: 100%;
             color: $grey-color;
+            margin: 0;
         }
     }
 

@@ -15,7 +15,7 @@
       </div>
       <div class="card__text">
           <p>Рюкзак Louis Vuitton Discovery</p>
-          <h2>150 000 ₽</h2>
+          <h5>150 000 ₽</h5>
       </div>
   </div>
 </template>
@@ -96,9 +96,7 @@ export default {
         background-color: $ellow-color;
         max-height: 20px;
         width: 20px;
-        // height: 12px;
         bottom: 235px;
-
     }
 
     .card__photo {
@@ -122,11 +120,6 @@ export default {
             font-size: 14px;
             line-height: 18px;
             margin-bottom: 6px;
-        }
-        h2 {
-            color: $black-color;
-            font-size: 14px;
-            line-height: 18px;
         }
     }
 </style>

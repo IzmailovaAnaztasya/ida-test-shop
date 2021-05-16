@@ -1,22 +1,37 @@
 <template>
-    <div class="products">
-      <div class="sort">
-        <DropdownSort />
-      </div>
-      <div class="slots__container">
-      <div class="slots">
-        <ProductSlot />
-        <ProductSlot />
-        <ProductSlot />
-        <ProductSlot />
-      </div>
+    <div>
+      <div class="products">
+        <div class="sort">
+          <DropdownSort />
+        </div>
+        <div class="slots__container">
+        <div class="slots">
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+          <ProductSlot />
+        </div>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 export default {
-
+  data() {
+    return {
+      showBasket: false,
+    }
+  },
+  methods: {
+    isShowBasket() {
+      this.showBasket = true
+    }
+  },
 }
 </script>
 
@@ -32,11 +47,9 @@ export default {
     position: absolute;
     right: 0%;
   }
-
   .slots__container {
-    padding: 0 auto;
+    position: relative;
   }
-
   .slots {
     display: flex;
     flex-wrap: wrap;

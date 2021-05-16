@@ -59,6 +59,7 @@ export default {
 <style lang="scss" scoped>
     .dropdown {
         position: relative;
+        margin-right: 20px;
 
         p {
           margin: 0;

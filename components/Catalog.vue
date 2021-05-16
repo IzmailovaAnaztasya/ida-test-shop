@@ -19,8 +19,8 @@ export default {
 <style lang="scss" scoped>
   .catalog {
     float: left;
-    width: 232px;
-    min-width: 232px;
+    width: 160px;
+    min-width: 160px;
   }
 
   h2 {
