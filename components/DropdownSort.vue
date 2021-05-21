@@ -12,18 +12,20 @@
               {{sort.label}}
               </li>
           </ul>
-          <input type="text" :value="testValue">
+          <input type="text" :value="useValue">
       </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
         visibleList: false,
         btnLabel: 'цене',
-        testValue: '',
+        useValue: '',
         sorts: [
             {
             label: 'По цене',
@@ -33,13 +35,14 @@ export default {
             {
             label: 'По популярности',
             labelBtn: 'популярности',
-            value: 'popular',
+            value: 'rating',
             },
       ]
     }
   },
   methods: {
-      isVisibleList(sort) {
+      ...mapMutations("product", ["sortProdPrice", "sortProdRating"]),
+      isVisibleList() {
           if (this.visibleList === false) {
               this.visibleList = true
           } else {
@@ -50,7 +53,13 @@ export default {
           this.btnLabel = sort.labelBtn
           this.visibleList = false
           //console.log('hello', sort.value);
-          this.testValue = sort.value
+          this.useValue = sort.value
+          if (this.useValue === 'price') {
+            return this.sortProdPrice()
+          }
+          if (this.useValue === 'rating') {
+            return this.sortProdRating()
+          }
       }
   }
 }

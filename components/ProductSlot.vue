@@ -1,34 +1,42 @@
 <template>
   <div class="card">
       <div class="card__stars">
-          <div class="stars__background" v-bind:style="{height:star}"></div>
+          <div class="stars__background" v-bind:style="{height:rating}"></div>
           <div class="stars__main">
                 <img src="~/assets/images/star.svg" alt="">
-                <span>4.5</span>
+                <span>{{products_data.rating}}</span>
           </div>
       </div>
       <div class="card__photo">
-          <img src="~/assets/images/louisvuitton.png" alt="">
+          <img class="card-photo-img" :src="`https://front-test.idalite.com${products_data.photo}`" alt="">
       </div>
       <div class="card__basket">
           <img src="~/assets/images/basket.svg" alt="">
       </div>
       <div class="card__text">
-          <p>Рюкзак Louis Vuitton Discovery</p>
-          <h5>150 000 ₽</h5>
+          <p>{{products_data.name}}</p>
+          <h5>{{products_data.price.toLocaleString()}} ₽</h5>
       </div>
   </div>
 </template>
 
 <script>
 export default {
+    props: {
+        products_data: {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
+    },
     data() {
         return {
-            star: '12px',
-            stars: [
+            heightStar: '12px',
+            heightStars: [
                 {
                     starkey: 0,
-                    starmean: '6px',
+                    starmean: '5px',
                 },
                 {
                     starkey: 1,
@@ -47,10 +55,19 @@ export default {
                     starmean: '12px',
                 },
                 {
-                    starkey: 0,
+                    starkey: 5,
                     starmean: '15px',
                 },
             ]
+        }
+    },
+    methods: {
+
+    },
+    computed:{
+        rating: function (){
+            const elrating = this.heightStars.find(el => el.starkey >= this.products_data.rating )
+             return elrating.starmean
         }
     }
 
@@ -101,8 +118,14 @@ export default {
 
     .card__photo {
         margin-top: 18px;
-        margin-right: 30px;
+        // margin-right: 30px;
     }
+
+    .card-photo-img {
+        height: auto;
+        width: 100%;
+    }
+
     .card__basket {
         margin: 17px 18px 0 0;
 

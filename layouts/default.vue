@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Basket />
+    <!-- <Basket /> -->
     <Header />
     <div class="container">
       <Catalog />

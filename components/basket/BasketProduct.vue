@@ -73,10 +73,6 @@ export default {
         vertical-align: 7px;
     }
 
-    .basket__star {
-
-    }
-
     .stars__background {
         position: absolute;
         bottom: 12px;

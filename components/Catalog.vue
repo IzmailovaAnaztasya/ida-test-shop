@@ -3,16 +3,42 @@
         <h2>Каталог</h2>
 
         <ul>
-          <li>Рюкзаки</li>
-          <li>Футболки</li>
-          <li>Рубашки</li>
+          <li v-for="category in getterProductsCategory" 
+            :key="category.id"
+            @click="setActive(category.id)"
+            :class="{activeIdx: category.id === activeCategoryIdx}"
+            >
+              <nuxt-link :to="`/catalog/${category.id}`" 
+                >{{category.name}} 
+              </nuxt-link>
+          </li>
         </ul>
     </div>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapActions } from "vuex";
 
+export default {
+  data() {
+    return {
+      activeCategoryIdx: null,
+    }
+  },
+  methods: {
+    ...mapActions("product", ["getProductsCategory", "getProductsList"]),
+
+    setActive(key) {
+      this.activeCategoryIdx = key
+      // console.log(key);
+    }
+  },
+  mounted() {
+    this.getProductsCategory()
+  },
+  computed: {
+    ...mapGetters("product", ["getterProductsCategory"])
+  }
 }
 </script>
 
@@ -47,11 +73,11 @@ export default {
         &:hover {
             color: $grey-color;
         }
-
-        &:focus {
-            color: $black-color;
-            text-decoration: underline;
-        }
       }
+  }
+
+  .activeIdx {
+      color: $black-color;
+      text-decoration: underline;
   }
 </style>

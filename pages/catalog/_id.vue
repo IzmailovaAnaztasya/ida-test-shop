@@ -3,35 +3,25 @@
         <div class="sort">
           <DropdownSort />
         </div>
-
-        <!-- <div>
-            <p>Выберите категорию или вам тут весь каталог прилетит!</p>
-        </div> -->
-
         <div class="slots__container">
         <div class="slots">
           <ProductSlot 
-            v-for="product in allProducts" 
+            v-for="product in getterProductsList" 
             :key="product.id"
             :products_data="product"
           />
         </div>
         </div>
-        
       </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  // async asyncData({$axios}) {
-  //   const allProducts = await $axios.$get('https://front-test.idalite.com/api/product')
-  //   return {allProducts}
-  // },
-  async fetch({store}) {
-    if (store.getters['product/getterProductsList'].length === 0) {
-      await store.dispatch('product/getAllProductsList')
-    }
+  async asyncData({ params }) {
+      const id = params.id // When calling /abc the id will be "abc"
+      return { id }
   },
   data() {
     return {
@@ -39,23 +29,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions("product", ["getProductsList","getProductsCategory"]),
+
     isShowBasket() {
       this.showBasket = true
     },
   },
-  // middleware: ['initCatalog'],
-
+  mounted() {
+    this.getProductsList(this.id)
+  },
   computed: {
-    allProducts() {
-      return this.$store.getters['product/allProducts']
-    }
+    ...mapGetters("product", ["getterProductsList"]),
   }
-
-  // computed: {
-  //   sortList() {
-  //     return this.allProducts.sort((a, b) => a.price - b.price)
-  //   }
-  // }
 }
 </script>
 
