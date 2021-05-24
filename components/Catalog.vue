@@ -8,7 +8,7 @@
             @click="setActive(category.id)"
             :class="{activeIdx: category.id === activeCategoryIdx}"
             >
-              <nuxt-link :to="`/catalog/${category.id}`" 
+              <nuxt-link :to="`/catalog/${category.id}`" :class="{activeIdx: category.id === activeCategoryIdx}"
                 >{{category.name}} 
               </nuxt-link>
           </li>

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Basket v-if="isOpenBasket" />
+    
+      <Basket v-if="isOpenBasket" />
+    
     <Header />
     <div class="container">
       <Catalog />
@@ -34,4 +36,6 @@ export default {
     justify-content: space-between;
     padding: 32px 88px 0 88px;
   }
+
+
 </style>

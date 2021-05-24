@@ -4,11 +4,12 @@
           <DropdownSort />
         </div>
 
-        <!-- <div>
-            <p>Выберите категорию или вам тут весь каталог прилетит!</p>
-        </div> -->
+        <div class="alert">
+            <h3>Каталог не выбран</h3>
+            <h4>Воспользуйтейсь боковым меню для выбора каталога</h4>
+        </div>
 
-        <div class="slots__container">
+        <!-- <div class="slots__container">
         <div class="slots">
           <ProductSlot 
             v-for="product in allProducts" 
@@ -16,7 +17,7 @@
             :products_data="product"
           />
         </div>
-        </div>
+        </div> -->
         
       </div>
 </template>
@@ -24,15 +25,11 @@
 <script>
 
 export default {
-  // async asyncData({$axios}) {
-  //   const allProducts = await $axios.$get('https://front-test.idalite.com/api/product')
-  //   return {allProducts}
+  // async fetch({store}) {
+  //   if (store.getters['product/getterProductsList'].length === 0) {
+  //     await store.dispatch('product/getAllProductsList')
+  //   }
   // },
-  async fetch({store}) {
-    if (store.getters['product/getterProductsList'].length === 0) {
-      await store.dispatch('product/getAllProductsList')
-    }
-  },
   data() {
     return {
       
@@ -43,21 +40,20 @@ export default {
   },
   // middleware: ['initCatalog'],
 
-  computed: {
-    allProducts() {
-      return this.$store.getters['product/allProducts']
-    }
-  }
-
   // computed: {
-  //   sortList() {
-  //     return this.allProducts.sort((a, b) => a.price - b.price)
+  //   allProducts() {
+  //     return this.$store.getters['product/allProducts']
   //   }
   // }
 }
 </script>
 
 <style lang="scss" scoped>
+  .alert {
+    padding-top: 50px;
+    text-align: center;
+  }
+
   .products {
     position: relative;
     margin-top: 10px;
