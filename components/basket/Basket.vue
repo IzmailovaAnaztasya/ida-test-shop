@@ -8,7 +8,7 @@
                 <img src="~/assets/images/close.svg" alt="">
             </button>
         </div>
-        <div class="basket__empty" v-if="!basketProductsCount">
+        <div class="basket__empty" v-if="!basketProductsCount && !isOrdering">
             <h3>Пока что вы ничего не добавили<br> в корзину.</h3>
             <button class="basket__button" @click="closeBasket">
                 Перейти к выбору
@@ -22,7 +22,7 @@
                   :key="product._id"
                   :basket_data="product"
                   @deleteProduct="deleteProduct(index)"
-                  />
+                />
             </ul>
             <BasketForm />
         </div>
@@ -45,7 +45,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("basket", ["isOpenBasket", "basketProducts", "basketProductsCount"])
+    ...mapGetters("basket", ["isOpenBasket", "basketProducts", "basketProductsCount", "isOrdering"])
   },
   mounted() {
     if(this.isOpenBasket === true) {
@@ -75,6 +75,7 @@ export default {
         position: absolute;
         right: 0;
         top: 0;
+        overflow: auto;
 
         padding: 52px 48px;
         width: 460px;

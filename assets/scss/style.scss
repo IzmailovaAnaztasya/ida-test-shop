@@ -58,7 +58,11 @@ button {
 }
 
 a {
-    text-decoration:none;
-    color: $grey-color;
+    text-decoration: none;
+    color: $grey-light-color;
     font-family: 'PT Sans', sans-serif;
-  }
+
+    &:hover {
+        color: $grey-color;
+    }
+}

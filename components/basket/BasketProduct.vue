@@ -1,23 +1,25 @@
 <template>
-  <div class="product__container">
-      <div class="product__photo">
-          <img :src="`https://front-test.idalite.com${basket_data.photo}`" alt="">
-      </div>
-      <div class="product__info">
-          <p>{{basket_data.name}}</p>
-          <h5>{{basket_data.price.toLocaleString()}} ₽</h5>
-          <div class="basket__star">
-              <div class="stars__background" v-bind:style="{height:rating}"></div>
-              <div class="stars__main">
-                <img src="~/assets/images/star.svg" alt="">
-                <span>{{basket_data.rating}}</span>
-              </div>
-          </div>
-      </div>
-      <div class="product__delete">
-          <img src="~/assets/images/deletebasket.svg" alt="" @click="deleteProduct">
-      </div>
-  </div>
+    <transition name="basketProduct">
+    <div class="product__container">
+        <div class="product__photo">
+            <img :src="`https://front-test.idalite.com${basket_data.photo}`" alt="">
+        </div>
+        <div class="product__info">
+            <p>{{basket_data.name}}</p>
+            <h5>{{basket_data.price.toLocaleString()}} ₽</h5>
+            <div class="basket__star">
+                <div class="stars__background" v-bind:style="{height:rating}"></div>
+                <div class="stars__main">
+                    <img src="~/assets/images/star.svg" alt="">
+                    <span>{{basket_data.rating}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="product__delete">
+            <img src="~/assets/images/deletebasket.svg" alt="" @click="deleteProduct">
+        </div>
+    </div>
+    </transition>
 </template>
 
 <script>
@@ -142,5 +144,15 @@ export default {
     .stars__main {
         position: absolute;
         bottom: 8px;
+    }
+
+    /* Animations */
+
+    .basketProduct-leave-active {
+        transition: all 0.5s;
+    }
+    .basketProduct-leave-to {
+        transform: translateX(50px);
+        opacity: 0;
     }
 </style>

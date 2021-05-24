@@ -16,6 +16,9 @@
             <span>!!</span>
             <p>Все поля обязательные.<br> После удачной отправки формы содержимое<br> корзины очищается</p>
         </div>
+        <div class="basket__error" v-if="isOrdering">
+            <p>Заявка успешно отправлена</p>
+        </div>
     </form>
   </div>
 </template>
@@ -23,12 +26,13 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, alpha, minLength, numeric, maxLength} from 'vuelidate/lib/validators'
+import {  mapGetters, mapMutations } from "vuex";
 
 export default {
     mixins: [validationMixin],
     validations: {
         form: {
-            name: {required, minLength: minLength(3), alpha},
+            name: {required, minLength: minLength(3), alpha: true},
             phone: {required, minLength: minLength(11), numeric, maxLength: maxLength(11)},
             adress: {required, minLength: minLength(20)}
         }
@@ -43,13 +47,18 @@ export default {
         };
     },
     methods: {
+        ...mapMutations("basket", ["checkoutSuccess"]),
         checkBasketForm() {
             this.$v.form.$touch()
             if (!this.$v.form.$error) {
-                console.log('Oops Error');
+                console.log('OK is Valid');
+                this.checkoutSuccess()
             }
         }
-    }
+    },
+    computed: {
+        ...mapGetters("basket", ["isOrdering"])
+    },
 }
 </script>
 
