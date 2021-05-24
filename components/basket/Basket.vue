@@ -2,58 +2,67 @@
     <div>
         <div class="basket__shadow"></div>
         <div class="basket__container">
-            <div class="basket__header">
-                <h2>Корзина</h2>
-                <button>
-                    <img src="~/assets/images/close.svg" alt="">
-                </button>
-                </div>
-                <div class="basket__empty">
-                    <h3>Пока что вы ничего не добавили<br> в корзину.</h3>
-                    <button class="basket__button">
-                        Перейти к выбору
-                    </button>
-                </div>
-
-                <form action="">
-                    <h4>Товары в корзине</h4>
-                    <ul>
-                        <BasketProduct />
-                        <BasketProduct />
-                        <BasketProduct />
-                    </ul>
-                    <h4>Оформить заказ</h4>
-                    <div class="basket__inp">
-                        <input type="text" id="name" placeholder="Ваше имя">
-                    </div>
-                    <div class="basket__inp">
-                        <input type="text" id="phone" placeholder="Телефон">
-                    </div>
-                        <div class="basket__inp">
-                            <input type="text" id="address" placeholder="Адрес">
-                        </div>
-                    <button class="basket__button">Отправить</button>
-                    <div class="basket__error">
-                        <div class="error__img"></div>
-                        <span>!!</span>
-                        <p>Все поля обязательные.<br> После удачной отправки формы содержимое<br> корзины очищается</p>
-                    </div>
-                </form>
+        <div class="basket__header">
+            <h2>Корзина</h2>
+            <button @click="closeBasket">
+                <img src="~/assets/images/close.svg" alt="">
+            </button>
+        </div>
+        <div class="basket__empty" v-if="!basketProductsCount">
+            <h3>Пока что вы ничего не добавили<br> в корзину.</h3>
+            <button class="basket__button" @click="closeBasket">
+                Перейти к выбору
+            </button>
+        </div>
+        <div v-else>
+        <h4>Товары в корзине</h4>
+            <ul>
+                <BasketProduct
+                  v-for="(product, index) in basketProducts"
+                  :key="product._id"
+                  :basket_data="product"
+                  @deleteProduct="deleteProduct(index)"
+                  />
+            </ul>
+            <BasketForm />
+        </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from "vuex";
+
 export default {
 
+  methods: {
+    ...mapMutations("basket", ["openBasket", "closeBasket"]),
+    ...mapActions("basket", ["deleteToProduct"]),
+
+    deleteProduct(index) {
+        //console.log(index)
+        this.deleteToProduct(index)
+    }
+  },
+  computed: {
+    ...mapGetters("basket", ["isOpenBasket", "basketProducts", "basketProductsCount"])
+  },
+  mounted() {
+    if(this.isOpenBasket === true) {
+        document.body.classList.add("overflow-class");
+    }
+  },
+  beforeDestroy() {
+    document.body.classList.remove("overflow-class"); 
+  },
 }
 </script>
 
 <style lang="scss" scoped>
     .basket__shadow {
         z-index: 1;
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
         position: absolute;
         left: 0px;
         top: 0px;
@@ -106,54 +115,5 @@ export default {
             font-size: 16px;
             line-height: 21px;
             cursor: pointer;
-    }
-
-    .basket__inp {
-        margin-top: 16px;
-
-        input {
-            width: 100%;
-            height: 50px;
-            padding-left: 14px;
-            border: 1px solid $grey-extra-light-color;
-            border-radius: 8px;
-            background-color: $grey-extra-light-color;
-
-            font-style: normal;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 21px;
-            color: $grey-light-color;
-
-            &:focus {
-                color: $black-color;
-                outline: 1px solid $grey-extra-light-color;
-            }
-        }
-    }
-
-    .basket__error {
-        display: flex;
-        margin-top: 32px;
-        position: relative;
-
-        p {
-            margin: 0;
-           color: $black-color;
-           font-style: normal;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 21px; 
-        }
-
-        span {
-            color: #EB5757;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 32px;
-            line-height: 41px;
-            margin-right: 8px;
-            margin-top: -5px;
-        }
     }
 </style>

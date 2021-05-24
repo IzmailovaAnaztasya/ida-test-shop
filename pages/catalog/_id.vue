@@ -9,6 +9,7 @@
             v-for="product in getterProductsList" 
             :key="product.id"
             :products_data="product"
+            @addProduct="addProduct"
           />
         </div>
         </div>
@@ -30,10 +31,16 @@ export default {
   },
   methods: {
     ...mapActions("product", ["getProductsList","getProductsCategory"]),
+    ...mapActions("basket", ["addToProduct"]),
 
     isShowBasket() {
       this.showBasket = true
     },
+
+    addProduct(data) {
+      //console.log(data);
+      this.addToProduct(data)
+    }
   },
   mounted() {
     this.getProductsList(this.id)
