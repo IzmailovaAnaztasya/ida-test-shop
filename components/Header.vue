@@ -4,19 +4,26 @@
             <h1>TestList</h1>
         </div>
         <div class="header__basket">
-            <div class="basket">
+            <div class="basket" @click="openBasket">
                  <img src="~/assets/images/vector.svg" alt="">
-            </div>
-            <div class="products">
-                <span>3</span>
+                <div class="products">
+                    <span>{{basketProductsCount}}</span>
+                </div>
             </div>
         </div>
     </header>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapMutations } from "vuex";
 
+export default {
+  methods: {
+    ...mapMutations("basket", ["openBasket"])
+  },
+  computed: {
+    ...mapGetters("basket", ["isOpenBasket", "basketProductsCount"])
+  },
 }
 </script>
 
@@ -48,6 +55,7 @@ export default {
 
     .header__basket {
         padding: 17px 104px 17px 0;
+        cursor: pointer;
     }
 
     .products {

@@ -31,7 +31,7 @@ export default {
     setActive(key) {
       this.activeCategoryIdx = key
       // console.log(key);
-    }
+    },
   },
   mounted() {
     this.getProductsCategory()

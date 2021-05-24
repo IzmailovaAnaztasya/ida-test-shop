@@ -1,28 +1,80 @@
 <template>
   <div class="product__container">
       <div class="product__photo">
-          <img src="~/assets/images/louisvuitton.png" alt="">
+          <img :src="`https://front-test.idalite.com${basket_data.photo}`" alt="">
       </div>
       <div class="product__info">
-          <p>Рюкзак Louis Vuitton Discovery</p>
-          <h5>150 000 ₽</h5>
+          <p>{{basket_data.name}}</p>
+          <h5>{{basket_data.price.toLocaleString()}} ₽</h5>
           <div class="basket__star">
-              <div class="stars__background" ></div>
+              <div class="stars__background" v-bind:style="{height:rating}"></div>
               <div class="stars__main">
                 <img src="~/assets/images/star.svg" alt="">
-                <span>4.5</span>
+                <span>{{basket_data.rating}}</span>
               </div>
           </div>
       </div>
       <div class="product__delete">
-          <img src="~/assets/images/deletebasket.svg" alt="">
+          <img src="~/assets/images/deletebasket.svg" alt="" @click="deleteProduct">
       </div>
   </div>
 </template>
 
 <script>
 export default {
-
+    props: {
+        basket_data: {
+            type: Object,
+            default() {
+                return {
+                    // name: 'Рюкзак Louis Vuitton Discovery',
+                    // price: 150000,
+                    // rating: 4.5,
+                }
+            }
+        },
+    },
+    data() {
+        return {
+            heightStars: [
+                {
+                    starkey: 0,
+                    starmean: '5px',
+                },
+                {
+                    starkey: 1,
+                    starmean: '7px',
+                },
+                {
+                    starkey: 2,
+                    starmean: '8px',
+                },
+                {
+                    starkey: 3,
+                    starmean: '10px',
+                },
+                {
+                    starkey: 4,
+                    starmean: '12px',
+                },
+                {
+                    starkey: 5,
+                    starmean: '15px',
+                },
+            ]
+        }
+    },
+    methods: {
+        deleteProduct() {
+            this.$emit('deleteProduct')
+        }
+    },
+    computed:{
+        rating: function (){
+            const elrating = this.heightStars.find(el => el.starkey >= this.basket_data.rating )
+            return elrating.starmean
+        }
+    }
 }
 </script>
 
@@ -38,13 +90,14 @@ export default {
     }
 
     .product__photo {
-        margin: 15px 34px 15px 25px;
+        margin: 15px 34px 15px 15px;
         height: 90px;
         width: 71px;
+        padding: 0;
 
         img {
-            width: 100%;
-            height: 100%;
+            width: 100px;
+            height: auto;
             object-fit: contain;
         }
     }
@@ -62,6 +115,10 @@ export default {
 
     .product__delete {
         padding: 49px 22px 49px 22px;
+        
+        img {
+            cursor: pointer;
+        }
     }
 
     span {

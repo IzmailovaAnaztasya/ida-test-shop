@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <Basket /> -->
+    <Basket v-if="isOpenBasket" />
     <Header />
     <div class="container">
       <Catalog />
@@ -11,16 +11,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Header from '@/components/Header'
 
 export default {
   components: {
       Header
-    }
+    },
+  computed: {
+    ...mapGetters("basket", ["isOpenBasket"])
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  .overflow-class {
+    overflow-y: hidden;
+  }
   .container {
     display: flex;
     justify-content: space-between;

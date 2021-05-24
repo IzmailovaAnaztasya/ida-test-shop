@@ -10,7 +10,7 @@
       <div class="card__photo">
           <img class="card-photo-img" :src="`https://front-test.idalite.com${products_data.photo}`" alt="">
       </div>
-      <div class="card__basket">
+      <div class="card__basket" @click="addProduct">
           <img src="~/assets/images/basket.svg" alt="">
       </div>
       <div class="card__text">
@@ -32,7 +32,6 @@ export default {
     },
     data() {
         return {
-            heightStar: '12px',
             heightStars: [
                 {
                     starkey: 0,
@@ -62,7 +61,9 @@ export default {
         }
     },
     methods: {
-
+        addProduct() {
+            this.$emit('addProduct', this.products_data)
+        }
     },
     computed:{
         rating: function (){
@@ -129,7 +130,7 @@ export default {
     .card__basket {
         margin: 17px 18px 0 0;
 
-        &:hover {
+        img {
             cursor: pointer;
         }
     }

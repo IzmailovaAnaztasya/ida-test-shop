@@ -35,13 +35,11 @@ export default {
   },
   data() {
     return {
-      showBasket: false,
+      
     }
   },
   methods: {
-    isShowBasket() {
-      this.showBasket = true
-    },
+    
   },
   // middleware: ['initCatalog'],
 
