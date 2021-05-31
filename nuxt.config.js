@@ -4,6 +4,9 @@ export default {
   router: {
     base: '/ida-test-shop/'
   },
+  generate:{
+    dir:'build'
+  },
   head: {
     title: 'ida-test-shop',
     htmlAttrs: {
