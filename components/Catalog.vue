@@ -3,12 +3,12 @@
         <h2>Каталог</h2>
 
         <ul>
-          <li v-for="category in getterProductsCategory" 
+          <li v-for="category in categories" 
             :key="category.id"
             @click="setActive(category.id)"
             :class="{activeIdx: category.id === activeCategoryIdx}"
             >
-              <nuxt-link :to="`/catalog/${category.id}`" :class="{activeIdx: category.id === activeCategoryIdx}"
+              <nuxt-link :to="`/catalog/${category.id}`" acitve-class="activeIdx"
                 >{{category.name}} 
               </nuxt-link>
           </li>
@@ -37,7 +37,7 @@ export default {
     this.getProductsCategory()
   },
   computed: {
-    ...mapGetters("product", ["getterProductsCategory"])
+    ...mapGetters( ["categories"])
   }
 }
 </script>
