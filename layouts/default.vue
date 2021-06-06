@@ -1,7 +1,9 @@
 <template>
   <div>
-    
+    <client-only>
+
       <Basket v-if="isOpenBasket" />
+    </client-only>
     
     <Header />
     <div class="container">

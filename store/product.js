@@ -36,6 +36,7 @@ export const actions = {
     // category = важно
     async getProductsList({commit}, category) {
         const products = await this.$axios.$get('https://front-test.idalite.com/api/product?category=' + category)
+        products.sort((a, b) => a.price - b.price)
         commit('setProducts', products)
     },
 

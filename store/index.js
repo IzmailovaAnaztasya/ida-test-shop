@@ -7,7 +7,7 @@ export const state = () => ({
     setCategories(state, categories) {
       state.categories = categories
     },
-    setActiveCategories(state, newActiveCategory) {
+    setActiveCategories(state) {
       state.categories = categories
     }
   }

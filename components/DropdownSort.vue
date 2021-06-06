@@ -37,7 +37,7 @@ export default {
             labelBtn: 'популярности',
             value: 'rating',
             },
-      ]
+      ],
     }
   },
   methods: {
@@ -52,8 +52,8 @@ export default {
       isBtnLabel(sort) {
           this.btnLabel = sort.labelBtn
           this.visibleList = false
-          //console.log('hello', sort.value);
           this.useValue = sort.value
+          //console.log('hello', this.useValue);
           if (this.useValue === 'price') {
             return this.sortProdPrice()
           }
@@ -61,7 +61,7 @@ export default {
             return this.sortProdRating()
           }
       }
-  }
+  },
 }
 </script>
 
